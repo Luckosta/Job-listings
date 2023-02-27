@@ -1,19 +1,19 @@
 import { ADD_FILTER, DELETE_FILTER, CLEAR_FILTER } from './filter-actions';
 
-export const filterReducer = (state = [], { type, filter }) => {
-   switch (type) {
+export const filterReducer = (state = [], action) => {
+   switch (action.type) {
       case ADD_FILTER: {
-         return [...state, filter];
+         if (state.includes(action.filter)) {
+            return state;
+         }
+         return [...state, action.filter];
       }
-
       case DELETE_FILTER: {
-         return state.filter(item => item !== filter);
+         return state.filter((item) => item !== action.filter);
       }
-
       case CLEAR_FILTER: {
          return [];
       }
-
       default:
          return state;
    }
